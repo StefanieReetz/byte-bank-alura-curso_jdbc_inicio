@@ -9,11 +9,11 @@ public class Conta {
 
     private Integer numero;
     private BigDecimal saldo;
-    private Cliente titular;
+    private Cliente titulo;
 
     public Conta(Integer numero, Cliente titular) {
         this.numero = numero;
-        this.titular = titular;
+        this.titulo = titular;
         this.saldo = BigDecimal.ZERO;
     }
 
@@ -47,7 +47,7 @@ public class Conta {
         return "Conta{" +
                 "numero='" + numero + '\'' +
                 ", saldo=" + saldo +
-                ", titular=" + titular +
+                ", titular=" + titulo +
                 '}';
     }
 
@@ -60,6 +60,6 @@ public class Conta {
     }
 
     public Cliente getTitular() {
-        return titular;
+        return titulo;
     }
 }
