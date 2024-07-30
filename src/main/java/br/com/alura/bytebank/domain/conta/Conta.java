@@ -11,10 +11,10 @@ public class Conta {
     private BigDecimal saldo;
     private Cliente titulo;
 
-    public Conta(Integer numero, Cliente titular) {
+    public Conta(Integer numero,BigDecimal saldo, Cliente titular) {
         this.numero = numero;
         this.titulo = titular;
-        this.saldo = BigDecimal.ZERO;
+        this.saldo =saldo;
     }
 
     public boolean possuiSaldo() {
@@ -24,10 +24,7 @@ public class Conta {
     public void sacar(BigDecimal valor) {
         this.saldo = this.saldo.subtract(valor);
     }
-
-    public void depositar(BigDecimal valor) {
-        this.saldo = this.saldo.add(valor);
-    }
+    
 
     @Override
     public boolean equals(Object o) {

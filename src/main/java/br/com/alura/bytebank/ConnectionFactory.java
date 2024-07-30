@@ -3,7 +3,7 @@ package br.com.alura.bytebank;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-package br.com.alura.bytebank;
+
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
