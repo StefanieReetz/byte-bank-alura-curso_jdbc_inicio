@@ -20,6 +20,7 @@ public class ContaService {
 
     private Set<Conta> contas = new HashSet<>();
 
+
     public Set<Conta> listarContasAbertas() {
         Connection conn = connection.recuperarConexao();
         return new ContaDAO(conn).listar();
@@ -35,6 +36,7 @@ public class ContaService {
         new ContaDAO(conn).salvar(dadosDaConta);
     }
 
+
     public void realizarSaque(Integer numeroDaConta, BigDecimal valor) {
         var conta = buscarContaPorNumero(numeroDaConta);
         if (valor.compareTo(BigDecimal.ZERO) <= 0) {
@@ -45,7 +47,8 @@ public class ContaService {
             throw new RegraDeNegocioException("Saldo insuficiente!");
         }
 
-        conta.sacar(valor);
+        BigDecimal novoValor = conta.getSaldo().subtract(valor);
+        alterar(conta, novoValor);
     }
 
     public void realizarDeposito(Integer numeroDaConta, BigDecimal valor) {
@@ -53,10 +56,10 @@ public class ContaService {
         if (valor.compareTo(BigDecimal.ZERO) <= 0) {
             throw new RegraDeNegocioException("Valor do deposito deve ser superior a zero!");
         }
-
-        Connection conn = connection.recuperarConexao();
-        new ContaDAO(conn).alterarValor(conta.getNumero(), valor);
+        conta.getSaldo().add(valor);
+        alterar(conta, valor);
     }
+
 
     public void encerrar(Integer numeroDaConta) {
         var conta = buscarContaPorNumero(numeroDaConta);
@@ -75,5 +78,9 @@ public class ContaService {
         } else {
             throw new RegraDeNegocioException("Não existe conta cadastrada com esse número!");
         }
+    }
+    private void alterar(Conta conta, BigDecimal valor) {
+        Connection conn = connection.recuperarConexao();
+        new ContaDAO(conn).alterar(conta.getNumero(), valor);
     }
 }
